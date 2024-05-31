@@ -5,6 +5,7 @@
 package com.qlct.pojo;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -19,6 +20,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -38,7 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByPassword", query = "SELECT u FROM Users u WHERE u.password = :password"),
     @NamedQuery(name = "Users.findByRole", query = "SELECT u FROM Users u WHERE u.role = :role"),
     @NamedQuery(name = "Users.findByAvatar", query = "SELECT u FROM Users u WHERE u.avatar = :avatar"),
-    @NamedQuery(name = "Users.findByIsActive", query = "SELECT u FROM Users u WHERE u.isActive = :isActive")})
+    @NamedQuery(name = "Users.findByIsActive", query = "SELECT u FROM Users u WHERE u.isActive = :isActive"),
+    @NamedQuery(name = "Users.findByName", query = "SELECT u FROM Users u WHERE u.name = :name"),
+    @NamedQuery(name = "Users.findByDateofbirth", query = "SELECT u FROM Users u WHERE u.dateofbirth = :dateofbirth")})
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -69,6 +74,12 @@ public class Users implements Serializable {
     private String avatar;
     @Column(name = "is_active")
     private Boolean isActive;
+    @Size(max = 100)
+    @Column(name = "name")
+    private String name;
+    @Column(name = "dateofbirth")
+    @Temporal(TemporalType.DATE)
+    private Date dateofbirth;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ownerId")
     private Set<Igroups> igroupsSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
@@ -142,6 +153,22 @@ public class Users implements Serializable {
 
     public void setIsActive(Boolean isActive) {
         this.isActive = isActive;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Date getDateofbirth() {
+        return dateofbirth;
+    }
+
+    public void setDateofbirth(Date dateofbirth) {
+        this.dateofbirth = dateofbirth;
     }
 
     @XmlTransient

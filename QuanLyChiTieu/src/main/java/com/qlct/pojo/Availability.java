@@ -55,9 +55,7 @@ public class Availability implements Serializable {
     @Size(min = 1, max = 1073741824)
     @Column(name = "time_slots")
     private String timeSlots;
-    @JoinColumns({
-        @JoinColumn(name = "user_id", referencedColumnName = "id"),
-        @JoinColumn(name = "user_id", referencedColumnName = "id")})
+   @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Users users;
 
