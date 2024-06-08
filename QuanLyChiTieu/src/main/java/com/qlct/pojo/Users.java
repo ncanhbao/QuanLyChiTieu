@@ -45,6 +45,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByName", query = "SELECT u FROM Users u WHERE u.name = :name"),
     @NamedQuery(name = "Users.findByDateofbirth", query = "SELECT u FROM Users u WHERE u.dateofbirth = :dateofbirth")})
 public class Users implements Serializable {
+    private static final String ADMIN = "ROLE_ADMIN";
+    private static final String USER = "ROLE_USER";
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -64,7 +66,7 @@ public class Users implements Serializable {
     private String password;
     @Basic(optional = false)
     @NotNull
-    @Size(min = 1, max = 5)
+    @Size(min = 1, max = 50)
     @Column(name = "role")
     private String role;
     @Basic(optional = false)

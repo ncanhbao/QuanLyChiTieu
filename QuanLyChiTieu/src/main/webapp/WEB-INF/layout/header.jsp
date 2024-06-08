@@ -13,8 +13,8 @@
             <a class="navbar-brand" href="#">Quản lý chi tiêu</a>
         </div>
         <ul class="navbar-nav me-auto">
-            <li class="active nav-item"><a href="#" class="nav-link">Tổng quan</a></li>
-            <li><a class="nav-link" href="#">Sổ giao dịch</a></li>
+            <li class="active nav-item"><a href="<c:url value="/" />" class="nav-link">Tổng quan</a></li>
+            <li><a class="nav-link" href="<c:url value="/transactions" />">Sổ giao dịch</a></li>
             <li><a class="nav-link" href="#">Báo cáo</a></li>
             <li><a class="nav-link" href="#">Nhóm</a></li>
             <li><a class="nav-link" href="#">Tài khoản</a></li>
@@ -30,6 +30,7 @@
                     <a href="#" class="btn btn-outline-light">${pageContext.request.userPrincipal.name}</a>
                 </li>
                 <li>
+                    <a href="<c:url value="/" />" class="btn btn-outline-light">${pageContext.request.userPrincipal.name}</a>
                     <a href="<c:url value="/logout" />" class="btn btn-outline-light">Đăng xuất</a>
                 </li>
             </c:if>
