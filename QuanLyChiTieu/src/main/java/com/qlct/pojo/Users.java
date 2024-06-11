@@ -5,7 +5,6 @@
 package com.qlct.pojo;
 
 import java.io.Serializable;
-import java.util.Date;
 import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -20,8 +19,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -43,10 +40,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Users.findByAvatar", query = "SELECT u FROM Users u WHERE u.avatar = :avatar"),
     @NamedQuery(name = "Users.findByIsActive", query = "SELECT u FROM Users u WHERE u.isActive = :isActive"),
     @NamedQuery(name = "Users.findByName", query = "SELECT u FROM Users u WHERE u.name = :name"),
-    @NamedQuery(name = "Users.findByDateofbirth", query = "SELECT u FROM Users u WHERE u.dateofbirth = :dateofbirth")})
+    @NamedQuery(name = "Users.findByPhone", query = "SELECT u FROM Users u WHERE u.phone = :phone")})
 public class Users implements Serializable {
-    private static final String ADMIN = "ROLE_ADMIN";
-    private static final String USER = "ROLE_USER";
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -79,9 +74,10 @@ public class Users implements Serializable {
     @Size(max = 100)
     @Column(name = "name")
     private String name;
-    @Column(name = "dateofbirth")
-    @Temporal(TemporalType.DATE)
-    private Date dateofbirth;
+    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
+    @Size(max = 15)
+    @Column(name = "phone")
+    private String phone;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "ownerId")
     private Set<Igroups> igroupsSet;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "userId")
@@ -165,12 +161,12 @@ public class Users implements Serializable {
         this.name = name;
     }
 
-    public Date getDateofbirth() {
-        return dateofbirth;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setDateofbirth(Date dateofbirth) {
-        this.dateofbirth = dateofbirth;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     @XmlTransient
