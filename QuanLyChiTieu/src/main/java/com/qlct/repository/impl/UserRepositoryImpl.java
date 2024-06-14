@@ -12,9 +12,11 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,10 +29,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserRepositoryImpl implements UserRepository{
     @Autowired
     private LocalSessionFactoryBean sessionFactory;
+    @Autowired
+    private BCryptPasswordEncoder passEncoder;
+
 
     @Override
-    public boolean addUser(Users user) {
-        return false;
+    public int addUser(Users user) {
+        try {
+            Session session = this.sessionFactory.getObject().getCurrentSession();
+            int id = (Integer) session.save(user);
+            return id;
+        } catch (HibernateException ex) {
+            System.err.print(ex.getMessage());
+            return 0;
+        }
     }
 
     @Override
@@ -49,6 +61,25 @@ public class UserRepositoryImpl implements UserRepository{
         
         Query q = session.createQuery(query);
         return q.getResultList();
+    }
+
+    @Override
+    public Users getUserByUsername(String string) {
+         try {
+            Session s = this.sessionFactory.getObject().getCurrentSession();
+            Query q = s.createQuery("FROM Users WHERE username = :username");
+            q.setParameter("username", sessionFactory);
+            return (Users) q.getSingleResult();
+        } catch (HibernateException e) {
+            System.err.print(e.getMessage());
+        }
+        return null;
+    }
+
+    @Override
+    public boolean authUser(String username, String password) {
+        Users u = this.getUserByUsername(username);
+        return this.passEncoder.matches(password, u.getPassword());
     }
     
 }

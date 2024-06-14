@@ -13,14 +13,17 @@
     <definition name="transaction-list" extends="baseLayout">
         <put-attribute name="title" value="Sổ giao dịch" />
         <put-attribute name="content"
-                           value="/WEB-INF/pages/transaction-list.jsp" />
+                       value="/WEB-INF/pages/transaction-list.jsp" />
     </definition>
     <definition name="index" extends="baseLayout">
         <put-attribute name="title" value="Trang chủ" />
         <put-attribute name="content" value="/WEB-INF/pages/index.jsp" />
     </definition>
-     <definition name="login" extends="baseLayout">
+    <definition name="login" extends="baseLayout">
         <put-attribute name="title" value="Đăng nhập" />
         <put-attribute name="content" value="/WEB-INF/pages/login.jsp" />
+    </definition>
+    <definition name="register" template="/WEB-INF/pages/register.jsp">
+        <put-attribute name="title" value="Đăng ký" />
     </definition>
 </tiles-definitions>

@@ -9,12 +9,6 @@
 
 <h1 class="text-center text-danger">ĐĂNG NHẬP</h1>
 
-<c:if test="${param.error != null}">
-    <div class="alert alert-danger">
-        Đã có lỗi xảy ra! Vui lòng quay lại sau!
-    </div>
-</c:if>
-
 <c:url value="/login" var="action" />
 <form method="post" action="${action}">
     <div class="form-group">
@@ -25,6 +19,11 @@
         <label for="password">Password</label>
         <input type="text" id="password" name="password" class="form-control"/>
     </div>
+    <c:if test="${param.error != null}">
+        <div class="text-danger">
+            Vui lòng nhập thông tin chính xác!
+        </div>
+    </c:if>
     <div class="form-group">
         <input type="submit" value="Đăng nhập" class="btn btn-danger"/>
     </div>

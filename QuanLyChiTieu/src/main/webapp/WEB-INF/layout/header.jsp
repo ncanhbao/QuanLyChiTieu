@@ -24,6 +24,10 @@
                 <li>
                     <a href="<c:url value="/login" />" class="btn btn-outline-light">Đăng nhập</a>
                 </li>
+                <li></li>
+                <li>
+                    <a href="<c:url value="/register" />" class="btn btn-outline-light">Đăng ký</a>
+                </li>
             </c:if>
             <c:if test="${pageContext.request.userPrincipal.name != null}">
                 <li>

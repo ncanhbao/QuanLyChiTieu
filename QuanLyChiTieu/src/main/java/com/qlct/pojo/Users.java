@@ -44,6 +44,10 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Users implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
+    public static final String USER = "ROLE_USER";
+    public static final String ADMIN = "ROLE_ADMIN";
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -70,11 +74,10 @@ public class Users implements Serializable {
     @Column(name = "avatar")
     private String avatar;
     @Column(name = "is_active")
-    private Boolean isActive;
+    private Integer isActive;
     @Size(max = 100)
     @Column(name = "name")
     private String name;
-    // @Pattern(regexp="^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$", message="Invalid phone/fax format, should be as xxx-xxx-xxxx")//if the field contains phone or fax number consider using this annotation to enforce field validation
     @Size(max = 15)
     @Column(name = "phone")
     private String phone;
@@ -145,11 +148,11 @@ public class Users implements Serializable {
         this.avatar = avatar;
     }
 
-    public Boolean getIsActive() {
+    public Integer getIsActive() {
         return isActive;
     }
 
-    public void setIsActive(Boolean isActive) {
+    public void setIsActive(Integer isActive) {
         this.isActive = isActive;
     }
 
