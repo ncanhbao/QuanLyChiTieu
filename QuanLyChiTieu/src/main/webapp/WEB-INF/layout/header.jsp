@@ -24,17 +24,15 @@
                 <li>
                     <a href="<c:url value="/login" />" class="btn btn-outline-light">Đăng nhập</a>
                 </li>
-                <li></li>
-                <li>
+                <li class="mx-2">
                     <a href="<c:url value="/register" />" class="btn btn-outline-light">Đăng ký</a>
                 </li>
             </c:if>
             <c:if test="${pageContext.request.userPrincipal.name != null}">
                 <li>
-                    <a href="#" class="btn btn-outline-light">${pageContext.request.userPrincipal.name}</a>
+                    <h4 style="color: white; padding-top: 5px;">Xin chào  ${pageContext.request.userPrincipal.name} !</h4>
                 </li>
-                <li>
-                    <a href="<c:url value="/" />" class="btn btn-outline-light">${pageContext.request.userPrincipal.name}</a>
+                <li class="mx-2">
                     <a href="<c:url value="/logout" />" class="btn btn-outline-light">Đăng xuất</a>
                 </li>
             </c:if>

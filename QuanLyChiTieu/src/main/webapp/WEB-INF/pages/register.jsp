@@ -28,6 +28,10 @@
             <label for="phone" class="form-label">Phone Number</label>
             <form:input path="phone" class="form-control" id="phone" placeholder="Phone Number" />
         </div>
+        <div class="mb-3">
+            <label for="avatar" class="form-label">Avatar URL</label>
+            <form:input path="avatar" class="form-control" id="avatar" placeholder="Avatar URL" />
+        </div>
         <button type="submit" class="btn btn-primary">Đăng ký</button>
     </form:form>
 </div>

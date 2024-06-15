@@ -26,10 +26,8 @@ public class UserController {
         Users user = userService.getLoggedInUser();
         if ("ROLE_ADMIN".equals(user.getRole())) {
             return "redirect:/admin";
-        } else if ("ROLE_USER".equals(user.getRole())) {
-            return "redirect:/user";
         }
-        return "/";
+        return "redirect:/";
     }
 
     @GetMapping("/register")

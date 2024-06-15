@@ -19,6 +19,7 @@
         <label for="password">Password</label>
         <input type="text" id="password" name="password" class="form-control"/>
     </div>
+    <div class="mb-3"></div> <!-- Add this line to create more space -->
     <c:if test="${param.error != null}">
         <div class="text-danger">
             Vui lòng nhập thông tin chính xác!
