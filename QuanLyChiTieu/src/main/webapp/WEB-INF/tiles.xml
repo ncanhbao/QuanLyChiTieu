@@ -28,4 +28,8 @@
     <definition name="index" template="/WEB-INF/pages/index.jsp">
         <put-attribute name="title" value="Hệ thống quản lý chi tiêu" />
     </definition>
+    <definition name="transaction-add" extends="baseLayout">
+        <put-attribute name="title" value="Thêm mới giao dịch" />
+        <put-attribute name="content" value="/WEB-INF/pages/transaction-add.jsp" />
+    </definition>
 </tiles-definitions>

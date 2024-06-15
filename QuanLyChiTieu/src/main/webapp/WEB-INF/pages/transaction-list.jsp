@@ -37,15 +37,15 @@
                         <td>${transaction.category.name}</td>
                         <td>${transaction.description}</td>
                         <td>
-                            <a href="/transactions/edit/${transaction.id}" class="btn btn-primary btn-sm">Sửa</a>
-                            <a href="/transactions/delete/${transaction.id}" class="btn btn-danger btn-sm">Xóa</a>
+                            <a href="/transactions-edit/${transaction.id}" class="btn btn-primary btn-sm">Sửa</a>
+                            <a href="/transactions-delete/${transaction.id}" class="btn btn-danger btn-sm">Xóa</a>
                         </td>
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
 
-        <a href="/transactions/add" class="btn btn-success">Thêm giao dịch mới</a>
+        <a href="<c:url value="/transaction-add" />" class="btn btn-success">Thêm giao dịch mới</a>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

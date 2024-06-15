@@ -1,50 +1,63 @@
-
-
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.qlct.controllers;
 
+import com.qlct.pojo.Categories;
+import com.qlct.pojo.Igroups;
 import com.qlct.pojo.Transactions;
+import com.qlct.service.CategoryService;
+import com.qlct.service.GroupService;
 import com.qlct.service.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-/**
- *
- * @author ncanh
- */
+import javax.validation.Valid;
+import java.util.List;
+
 @Controller
-@RequestMapping("/transactions")
 public class TransactionController {
     @Autowired
     private TransactionService transactionService;
-    
-    @GetMapping
+
+    @Autowired
+    private CategoryService categoryService;
+
+    @Autowired
+    private GroupService groupService;
+
+    @GetMapping("/transaction-list")
     public String listTransactions(Model model) {
         model.addAttribute("transactions", transactionService.getTransactions());
-        return "transaction-list"; // Tên view hiển thị danh sách giao dịch
+        return "transaction-list";
     }
-    
-    @GetMapping("/add")
+
+    @GetMapping("/transaction-add")
     public String addTransactionView(Model model) {
         model.addAttribute("transaction", new Transactions());
-        return "transaction-add"; // Tên view để thêm giao dịch mới
+        model.addAttribute("categories", categoryService.getCategories());
+        model.addAttribute("groups", groupService.getGroups());
+        return "transaction-add";
     }
-    
-     @PostMapping("/add")
-    public String addTransaction(@ModelAttribute("transaction") Transactions transaction) {
+
+    @PostMapping("/transaction-add")
+    public String addTransaction(@Valid @ModelAttribute("transaction") Transactions transaction, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("categories", categoryService.getCategories());
+            model.addAttribute("groups", groupService.getGroups());
+            return "transaction-add";
+        }
+
         if (transactionService.addTransactions(transaction)) {
-            return "redirect:/transactions"; // Chuyển hướng về trang danh sách giao dịch sau khi thêm thành công
+            return "redirect:/transaction-list";
         } else {
-            // Xử lý trường hợp thêm giao dịch thất bại
-            return "transaction-add"; // Quay lại trang thêm giao dịch
+            model.addAttribute("error", "Thêm giao dịch không thành công. Vui lòng thử lại.");
+            model.addAttribute("categories", categoryService.getCategories());
+            model.addAttribute("groups", groupService.getGroups());
+            return "transaction-add";
         }
     }
 }

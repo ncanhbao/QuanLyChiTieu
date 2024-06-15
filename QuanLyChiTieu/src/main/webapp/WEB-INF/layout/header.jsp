@@ -14,7 +14,7 @@
         </div>
         <ul class="navbar-nav me-auto">
             <li class="active nav-item"><a href="<c:url value="/home" />" class="nav-link">Tổng quan</a></li>
-            <li><a class="nav-link" href="<c:url value="/transactions" />">Sổ giao dịch</a></li>
+            <li><a class="nav-link" href="<c:url value="/transaction-list" />">Sổ giao dịch</a></li>
             <li><a class="nav-link" href="#">Báo cáo</a></li>
             <li><a class="nav-link" href="#">Nhóm</a></li>
             <li><a class="nav-link" href="#">Tài khoản</a></li>
