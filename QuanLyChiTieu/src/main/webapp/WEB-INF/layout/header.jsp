@@ -13,7 +13,7 @@
             <a class="navbar-brand" href="#">Quản lý chi tiêu</a>
         </div>
         <ul class="navbar-nav me-auto">
-            <li class="active nav-item"><a href="<c:url value="/" />" class="nav-link">Tổng quan</a></li>
+            <li class="active nav-item"><a href="<c:url value="/home" />" class="nav-link">Tổng quan</a></li>
             <li><a class="nav-link" href="<c:url value="/transactions" />">Sổ giao dịch</a></li>
             <li><a class="nav-link" href="#">Báo cáo</a></li>
             <li><a class="nav-link" href="#">Nhóm</a></li>
