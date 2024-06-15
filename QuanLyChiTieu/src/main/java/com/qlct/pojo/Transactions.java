@@ -35,7 +35,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @NamedQueries({
     @NamedQuery(name = "Transactions.findAll", query = "SELECT t FROM Transactions t"),
     @NamedQuery(name = "Transactions.findById", query = "SELECT t FROM Transactions t WHERE t.id = :id"),
-    @NamedQuery(name = "Transactions.findByType", query = "SELECT t FROM Transactions t WHERE t.type = :type"),
     @NamedQuery(name = "Transactions.findByAmount", query = "SELECT t FROM Transactions t WHERE t.amount = :amount"),
     @NamedQuery(name = "Transactions.findByDate", query = "SELECT t FROM Transactions t WHERE t.date = :date")})
 public class Transactions implements Serializable {
@@ -46,11 +45,6 @@ public class Transactions implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 7)
-    @Column(name = "type")
-    private String type;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Basic(optional = false)
     @NotNull
@@ -68,9 +62,6 @@ public class Transactions implements Serializable {
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Categories categoryId;
-    @JoinColumn(name = "group_id", referencedColumnName = "id")
-    @ManyToOne
-    private Igroups groupId;
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Users userId;
@@ -82,9 +73,8 @@ public class Transactions implements Serializable {
         this.id = id;
     }
 
-    public Transactions(Integer id, String type, BigDecimal amount, Date date) {
+    public Transactions(Integer id, BigDecimal amount, Date date) {
         this.id = id;
-        this.type = type;
         this.amount = amount;
         this.date = date;
     }
@@ -95,14 +85,6 @@ public class Transactions implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public BigDecimal getAmount() {
@@ -135,14 +117,6 @@ public class Transactions implements Serializable {
 
     public void setCategoryId(Categories categoryId) {
         this.categoryId = categoryId;
-    }
-
-    public Igroups getGroupId() {
-        return groupId;
-    }
-
-    public void setGroupId(Igroups groupId) {
-        this.groupId = groupId;
     }
 
     public Users getUserId() {

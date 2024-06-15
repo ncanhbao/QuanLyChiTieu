@@ -1,47 +1,34 @@
-<%-- 
-    Document   : transaction-add
-    Created on : May 31, 2024, 2:34:59 PM
-    Author     : ncanh
---%>
-
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <div class="container">
     <h1 class="text-center text-primary mt-5">Thêm giao dịch mới</h1>
-    <form:form method="post" action="/transactions-add" modelAttribute="transaction" class="form-group mt-3">
+    <c:url value="/transaction-add" var="action" />
+    <form:form method="post" action="${action}" modelAttribute="transaction" class="form-group mt-3">
         <div class="mb-3">
-            <label for="type" class="form-label">Loại giao dịch</label>
-            <form:input path="type" class="form-control" id="type" placeholder="Loại giao dịch" />
+            <label for="date" class="form-label">Ngày giao dịch</label>
+            <form:input path="date" type="date" class="form-control" id="date" />
         </div>
         <div class="mb-3">
             <label for="amount" class="form-label">Số tiền</label>
-            <form:input path="amount" class="form-control" id="amount" placeholder="Số tiền" />
-        </div>
-        <div class="mb-3">
-            <label for="date" class="form-label">Ngày giao dịch</label>
-            <form:input path="date" class="form-control" id="date" placeholder="Ngày giao dịch" />
+            <form:input path="amount" class="form-control" id="amount" />
         </div>
         <div class="mb-3">
             <label for="description" class="form-label">Mô tả</label>
-            <form:textarea path="description" class="form-control" id="description" placeholder="Mô tả" />
+            <form:textarea path="description" class="form-control" id="description" rows="3"></form:textarea>
         </div>
         <div class="mb-3">
-            <label for="categoryId" class="form-label">Nhóm chi tiêu</label>
-            <form:select path="categoryId" class="form-control" id="categoryId">
-                <form:option value="" label="Chọn nhóm chi tiêu" />
-                <form:options items="${categories}" itemValue="id" itemLabel="name" />
+            <label for="category-name" class="form-label">Nhóm chi tiêu</label>
+            <form:select path="categoryId.name" class="form-control" id="category-name">
+                <form:option value="">Chọn nhóm chi tiêu</form:option>
+                <c:forEach items="${categories}" var="category">
+                    <form:option value="${category.name}">${category.name}</form:option>
+                </c:forEach>
             </form:select>
         </div>
-        <div class="mb-3">
-            <label for="groupId" class="form-label">Nhóm</label>
-            <form:select path="groupId" class="form-control" id="groupId">
-                <form:option value="" label="Chọn nhóm" />
-                <form:options items="${groups}" itemValue="id" itemLabel="name" />
-            </form:select>
-        </div>
-        <button type="submit" class="btn btn-primary">Thêm giao dịch</button>
+        <button type="submit" class="btn btn-primary">Lưu giao dịch</button>
     </form:form>
 
     <c:if test="${not empty error}">

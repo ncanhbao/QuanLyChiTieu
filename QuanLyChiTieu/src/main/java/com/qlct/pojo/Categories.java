@@ -32,7 +32,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Categories.findAll", query = "SELECT c FROM Categories c"),
     @NamedQuery(name = "Categories.findById", query = "SELECT c FROM Categories c WHERE c.id = :id"),
-    @NamedQuery(name = "Categories.findByName", query = "SELECT c FROM Categories c WHERE c.name = :name")})
+    @NamedQuery(name = "Categories.findByName", query = "SELECT c FROM Categories c WHERE c.name = :name"),
+    @NamedQuery(name = "Categories.findByType", query = "SELECT c FROM Categories c WHERE c.type = :type")})
 public class Categories implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,6 +47,9 @@ public class Categories implements Serializable {
     @Size(min = 1, max = 255)
     @Column(name = "name")
     private String name;
+    @Size(max = 45)
+    @Column(name = "type")
+    private String type;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "categoryId")
     private Set<Transactions> transactionsSet;
 
@@ -75,6 +79,14 @@ public class Categories implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     @XmlTransient

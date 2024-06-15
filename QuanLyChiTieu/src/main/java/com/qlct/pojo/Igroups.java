@@ -54,8 +54,6 @@ public class Igroups implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "groupId")
     private Set<GroupMembers> groupMembersSet;
     @OneToMany(mappedBy = "groupId")
-    private Set<Transactions> transactionsSet;
-    @OneToMany(mappedBy = "groupId")
     private Set<Users> usersSet;
 
     public Igroups() {
@@ -101,15 +99,6 @@ public class Igroups implements Serializable {
 
     public void setGroupMembersSet(Set<GroupMembers> groupMembersSet) {
         this.groupMembersSet = groupMembersSet;
-    }
-
-    @XmlTransient
-    public Set<Transactions> getTransactionsSet() {
-        return transactionsSet;
-    }
-
-    public void setTransactionsSet(Set<Transactions> transactionsSet) {
-        this.transactionsSet = transactionsSet;
     }
 
     @XmlTransient

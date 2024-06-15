@@ -26,8 +26,6 @@ public class TransactionController {
     @Autowired
     private CategoryService categoryService;
 
-    @Autowired
-    private GroupService groupService;
 
     @GetMapping("/transaction-list")
     public String listTransactions(Model model) {
@@ -39,7 +37,6 @@ public class TransactionController {
     public String addTransactionView(Model model) {
         model.addAttribute("transaction", new Transactions());
         model.addAttribute("categories", categoryService.getCategories());
-        model.addAttribute("groups", groupService.getGroups());
         return "transaction-add";
     }
 
@@ -47,7 +44,6 @@ public class TransactionController {
     public String addTransaction(@Valid @ModelAttribute("transaction") Transactions transaction, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("categories", categoryService.getCategories());
-            model.addAttribute("groups", groupService.getGroups());
             return "transaction-add";
         }
 
@@ -56,7 +52,6 @@ public class TransactionController {
         } else {
             model.addAttribute("error", "Thêm giao dịch không thành công. Vui lòng thử lại.");
             model.addAttribute("categories", categoryService.getCategories());
-            model.addAttribute("groups", groupService.getGroups());
             return "transaction-add";
         }
     }
