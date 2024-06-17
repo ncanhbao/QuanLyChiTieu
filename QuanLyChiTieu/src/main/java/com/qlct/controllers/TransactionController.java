@@ -1,11 +1,10 @@
 package com.qlct.controllers;
 
-import com.qlct.pojo.Categories;
-import com.qlct.pojo.Igroups;
 import com.qlct.pojo.Transactions;
+import com.qlct.pojo.Users;
 import com.qlct.service.CategoryService;
-import com.qlct.service.GroupService;
 import com.qlct.service.TransactionService;
+import com.qlct.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,12 +19,15 @@ import java.util.List;
 
 @Controller
 public class TransactionController {
+
     @Autowired
     private TransactionService transactionService;
 
     @Autowired
     private CategoryService categoryService;
 
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/transaction-list")
     public String listTransactions(Model model) {
@@ -47,10 +49,27 @@ public class TransactionController {
             return "transaction-add";
         }
 
-        if (transactionService.addTransactions(transaction)) {
-            return "redirect:/transaction-list";
-        } else {
-            model.addAttribute("error", "Thêm giao dịch không thành công. Vui lòng thử lại.");
+        try {
+            Users user = userService.getLoggedInUser();
+            if (user != null) {
+                transaction.setUserId(user);
+                transaction.setCategoryId(categoryService.getCategoryById(transaction.getCategoryId().getId()));
+                if (transactionService.addTransactions(transaction)) {
+                    return "redirect:/transaction-list";
+                } else {
+                    model.addAttribute("error", "Thêm giao dịch không thành công. Vui lòng thử lại.");
+                    model.addAttribute("categories", categoryService.getCategories());
+                    return "transaction-add";
+                }
+            } else {
+                model.addAttribute("error", "Không tìm thấy người dùng đang đăng nhập. Vui lòng thử lại.");
+                model.addAttribute("categories", categoryService.getCategories());
+                return "transaction-add";
+            }
+        } catch (Exception e) {
+            // Log the error
+            System.err.println("Error adding transaction: " + e.getMessage());
+            model.addAttribute("error", "Đã có lỗi xảy ra trong quá trình thêm giao dịch. Vui lòng thử lại sau.");
             model.addAttribute("categories", categoryService.getCategories());
             return "transaction-add";
         }

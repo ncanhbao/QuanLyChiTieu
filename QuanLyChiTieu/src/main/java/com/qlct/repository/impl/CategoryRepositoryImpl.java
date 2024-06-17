@@ -22,4 +22,10 @@ public class CategoryRepositoryImpl implements CategoryRepository {
         Session session = this.factory.getObject().getCurrentSession();
         return session.createQuery("FROM Categories", Categories.class).getResultList();
     }
+
+    @Override
+    public Categories getCategoryById(int id) {
+        Session session = this.factory.getObject().getCurrentSession();
+        return session.get(Categories.class, id);
+    }
 }

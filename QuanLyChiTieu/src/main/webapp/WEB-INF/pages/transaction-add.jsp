@@ -20,11 +20,11 @@
             <form:textarea path="description" class="form-control" id="description" rows="3"></form:textarea>
         </div>
         <div class="mb-3">
-            <label for="category-name" class="form-label">Nhóm chi tiêu</label>
-            <form:select path="categoryId.name" class="form-control" id="category-name">
+            <label for="category" class="form-label">Nhóm chi tiêu</label>
+            <form:select path="categoryId.id" class="form-control" id="category">
                 <form:option value="">Chọn nhóm chi tiêu</form:option>
                 <c:forEach items="${categories}" var="category">
-                    <form:option value="${category.name}">${category.name}</form:option>
+                    <form:option value="${category.id}">${category.name}</form:option>
                 </c:forEach>
             </form:select>
         </div>

@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface CategoryRepository {
     List<Categories> getCategories();
+    Categories getCategoryById(int id);
 }
