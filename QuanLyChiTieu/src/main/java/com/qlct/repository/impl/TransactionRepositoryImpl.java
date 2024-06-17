@@ -4,6 +4,7 @@ import com.qlct.pojo.Transactions;
 import com.qlct.repository.TransactionRepository;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.stereotype.Repository;
@@ -19,9 +20,29 @@ public class TransactionRepositoryImpl implements TransactionRepository {
     private LocalSessionFactoryBean factory;
 
     @Override
-    public List<Transactions> getTransactions() {
-        Session session = this.factory.getObject().getCurrentSession();
-        return session.createQuery("FROM Transactions", Transactions.class).getResultList();
+    public List<Transactions> getTransactions(int page, int pageSize) {
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            Query<Transactions> query = session.createQuery("FROM Transactions", Transactions.class);
+            query.setFirstResult((page - 1) * pageSize);
+            query.setMaxResults(pageSize);
+            return query.getResultList();
+        } catch (HibernateException ex) {
+            System.err.println("Error getting transactions: " + ex.getMessage());
+            return null;
+        }
+    }
+
+    @Override
+    public int countTransactions() {
+        try {
+            Session session = this.factory.getObject().getCurrentSession();
+            Query<Long> query = session.createQuery("SELECT COUNT(*) FROM Transactions", Long.class);
+            return query.getSingleResult().intValue();
+        } catch (HibernateException ex) {
+            System.err.println("Error counting transactions: " + ex.getMessage());
+            return 0;
+        }
     }
 
     @Override

@@ -10,16 +10,17 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Expense Management</title>
+        <title>Hệ thống quản lý chi tiêu</title>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
     </head>
     <body>
         <div class="container my-5">
-            <h1 class="text-center mb-4">Welcome to Expense Management</h1>
-            <p class="lead">Manage your expenses effectively and efficiently with our powerful expense management tool.</p>
+            <h1 class="text-center mb-4">Chào mừng đến với Hệ thống quản lý chi tiêu</h1>
+            <p class="lead">
+                Quản lý chi tiêu của bạn một cách hiệu quả và tiết kiệm với công cụ quản lý chi phí mạnh mẽ của chúng tôi.</p>
             <div class="d-flex justify-content-center mt-4">
-                <a href="<c:url value="/login" />" class="btn btn-primary btn-lg mx-2">Login</a>
-                <a href="<c:url value="/register" />" class="btn btn-outline-primary btn-lg mx-2">Register</a>
+                <a href="<c:url value="/login" />" class="btn btn-primary btn-lg mx-2">Đăng nhập</a>
+                <a href="<c:url value="/register" />" class="btn btn-outline-primary btn-lg mx-2">Đăng ký</a>
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>

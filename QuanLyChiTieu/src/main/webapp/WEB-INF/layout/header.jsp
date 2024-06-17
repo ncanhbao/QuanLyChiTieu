@@ -1,9 +1,3 @@
-<%-- 
-    Document   : header
-    Created on : May 30, 2024, 2:32:33 PM
-    Author     : ncanh
---%>
-
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -17,7 +11,7 @@
             <li><a class="nav-link" href="<c:url value="/transaction-list" />">Sổ giao dịch</a></li>
             <li><a class="nav-link" href="#">Báo cáo</a></li>
             <li><a class="nav-link" href="#">Nhóm</a></li>
-            <li><a class="nav-link" href="#">Tài khoản</a></li>
+            <li><a class="nav-link" href="<c:url value="/account" />">Tài khoản</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
             <c:if test="${pageContext.request.userPrincipal.name == null}">

@@ -32,4 +32,8 @@
         <put-attribute name="title" value="Thêm mới giao dịch" />
         <put-attribute name="content" value="/WEB-INF/pages/transaction-add.jsp" />
     </definition>
+     <definition name="account" extends="baseLayout">
+        <put-attribute name="title" value="Thông tin tài khoản" />
+        <put-attribute name="content" value="/WEB-INF/pages/account.jsp" />
+    </definition>
 </tiles-definitions>

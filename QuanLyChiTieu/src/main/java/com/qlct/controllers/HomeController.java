@@ -7,11 +7,9 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-@CrossOrigin()
 @Controller
 public class HomeController {
 
@@ -19,16 +17,18 @@ public class HomeController {
     private UserService userService;
 
     @RequestMapping("/home")
-    public String home(Model model, Authentication authentication) {
-        if (authentication != null && authentication.isAuthenticated()) {
-            Users user = userService.getLoggedInUser();
-            if (user != null && user.getRole().equals(Users.ADMIN)) {
+    public String home(Model model) {
+        Users user = userService.getLoggedInUser();
+        if (user != null) {
+            if (user.getRole().equals(Users.ADMIN)) {
                 return "redirect:/admin";
             } else {
                 return "home";
             }
         } else {
-            return "redirect:/login";
+            // Handle the case where the user is not logged in
+            model.addAttribute("error", "Bạn phải đăng nhập để sử dụng tính năng này.");
+            return "login";
         }
     }
 
@@ -36,9 +36,19 @@ public class HomeController {
     public String index() {
         return "index";
     }
-    
+
     @GetMapping("/home")
     public String home() {
-        return "home";
+        Users user = userService.getLoggedInUser();
+        if (user != null) {
+            if (user.getRole().equals(Users.ADMIN)) {
+                return "redirect:/admin";
+            } else {
+                return "home";
+            }
+        } else {
+            // Handle the case where the user is not logged in
+            return "redirect:/login";
+        }
     }
 }

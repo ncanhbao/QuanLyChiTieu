@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.qlct.service.impl;
 
 import com.qlct.pojo.Users;
@@ -22,10 +18,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-/**
- *
- * @author ncanh
- */
 @Service("userDetailsService")
 public class UserServiceImpl implements UserService {
 
@@ -97,4 +89,30 @@ public class UserServiceImpl implements UserService {
         return this.userRepository.getUserByUsername(username);
     }
 
+    @Override
+    @Transactional
+    public boolean updateUser(Users user) {
+        try {
+            return this.userRepository.updateUser(user);
+        } catch (Exception e) {
+            System.err.println("Error updating user: " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    @Transactional
+    public boolean deleteUser(Users user) {
+        try {
+            return this.userRepository.deleteUser(user);
+        } catch (Exception e) {
+            System.err.println("Error deleting user: " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public Users getUserById(int id) {
+        return this.userRepository.getUserById(id);
+    }
 }

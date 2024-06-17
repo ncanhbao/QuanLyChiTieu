@@ -16,8 +16,13 @@ public class TransactionServiceImpl implements TransactionService {
     private TransactionRepository transactionRepo;
 
     @Override
-    public List<Transactions> getTransactions() {
-        return this.transactionRepo.getTransactions();
+    public List<Transactions> getTransactions(int page, int pageSize) {
+        return this.transactionRepo.getTransactions(page, pageSize);
+    }
+
+    @Override
+    public int countTransactions() {
+        return this.transactionRepo.countTransactions();
     }
 
     @Override
